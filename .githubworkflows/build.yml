@@ -1,0 +1,39 @@
+name: Test Python App
+
+# Определяет, когда запускать этот рабочий процесс
+on:
+  push:
+    branches: [push, pull_request] # Запускать при пуше в эти ветки
+  pull_request:
+    branches: [ "main" ] # Запускать при PR в main
+
+# Список заданий, которые выполняются
+jobs:
+  build:
+    # Тип машины, на которой будет выполняться задание
+    runs-on: ubuntu-latest
+
+    # Шаги, выполняемые в рамках задания
+    steps:
+      # 1. Проверка репозитория, чтобы задание могло получить к нему доступ
+        uses: actions/checkout@v4
+
+      # 2. Настройка среды (например, Node.js, Python, Java)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. Установка зависимостей
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Запуск сборки
+      - name: Build
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 5. Запуск тестов
+      - name: Run script
+        run: python app.py

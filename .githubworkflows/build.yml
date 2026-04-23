@@ -1,11 +1,7 @@
-name: Test Python App
+name: Test Python App with pytest
 
 # Определяет, когда запускать этот рабочий процесс
-on:
-  push:
-    branches: [push, pull_request] # Запускать при пуше в эти ветки
-  pull_request:
-    branches: [ "main" ] # Запускать при PR в main
+on: [push, pull_request]
 
 # Список заданий, которые выполняются
 jobs:
